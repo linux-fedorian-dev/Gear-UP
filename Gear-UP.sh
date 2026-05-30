@@ -24,6 +24,12 @@ ask_yn() {
     done
 }
 
+presstocontinue() {
+    echo "" 
+    echo -n "Press any key to continue..."
+    read -n 1
+}
+
 read_choice() {
     local choice
     local min=${1:-1}
@@ -67,10 +73,7 @@ Internet() {
         info "Installing Discord..."
         sudo dnf install -y discord
     fi
-
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 Office() {
@@ -79,17 +82,20 @@ Office() {
     echo -e "${BOLD}${BLUE}               📊 OFFICE${NC}"
     echo -e "${BOLD}${BLUE}============================================${NC}"
 
-    INSTALL_OFFICE=false
+    INSTALL_LIBRE=false
+    INSTALL_ONLY=false
 
-    ask_yn "Do you want to install Office?" && INSTALL_OFFICE=true
-
-    if [ "$INSTALL_OFFICE" = true ]; then
-        info " Installing Office"
+    ask_yn "Do you want to install Libre Office?" && INSTALL_LIBRE=true
+    ask_yn "Do you want to install Only Office?" && INSTALL_ONLY=true
+    if [ "$INSTALL_LIBRE" = true ]; then
+        info " Installing Libre Office..."
         sudo dnf install -y libreoffice
     fi
-    echo "" 
-    echo -n "Press any key to continue..."
-    read -n 1
+    if [ "$INSTALL_ONLY" = true ]; then
+        info " Installing Olny Office..."
+        flatpak install -y flathub org.onlyoffice.desktopeditors
+    fi
+    presstocontinue
 }
 
 Editing() {
@@ -127,10 +133,7 @@ Editing() {
         info "Installing Shotcut..."
         sudo dnf install -y shotcut && success "Shotcut installed"
     fi
-    
-    echo "" 
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 GamingPlatforms() {
@@ -168,10 +171,7 @@ GamingPlatforms() {
         info "Installing ProtonUp-Qt..."
         flatpak install -y flathub net.davidotek.pupgui2 && success "ProtonUp-Qt installed"
     fi
-
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 GameGearUP() {
@@ -202,10 +202,7 @@ GameGearUP() {
         info "Installing btop..."
         sudo dnf install -y btop && success "btop installed"
     fi
-
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 installcodec() {
@@ -257,10 +254,7 @@ installcodec() {
         
         success "Codecs installation complete!"
     fi
-    
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 NvidiaInstall() {
@@ -300,10 +294,7 @@ NvidiaInstall() {
         echo -e "  ${BLUE}Once the CPU usage drops to normal (idle), it's done${NC}"
         echo -e "${BOLD}${GREEN}==========================================================${NC}"
     fi
-    
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 AsusToolsInstall() {
@@ -339,10 +330,7 @@ AsusToolsInstall() {
         echo -e "${YELLOW}  and give you the best balance between performance and battery.${NC}"
         echo -e "${BOLD}${YELLOW}═══════════════════════════════════════════════════════${NC}"
     fi
-    
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 DevelopmentTools() {
@@ -396,10 +384,7 @@ DevelopmentTools() {
         info "Installing Node.js and npm..."
         sudo dnf install -y nodejs npm && success "Node.js installed"
     fi
-
-    echo ""
-    echo -n "Press any key to continue..."
-    read -n 1
+    presstocontinue
 }
 
 RebootSystem() {
@@ -415,9 +400,7 @@ RebootSystem() {
         sudo reboot
     else
         echo -e "${BLUE}You can reboot later using: sudo reboot${NC}"
-        echo ""
-        echo -n "Press any key to continue..."
-        read -n 1
+        presstocontinue
     fi
 }
 
@@ -433,7 +416,7 @@ show_menu() {
     echo -e "  ${GREEN}4)${NC} 🛠️  Development Tools (Git, GCC, VS Code, Python, Node)"
     echo -e "  ${GREEN}5)${NC} 🟢 ASUS Laptop Tools (asusctl + ROG Center)"
     echo -e "  ${GREEN}6)${NC} 🎬 Hardware Codecs & NVIDIA Drivers"
-    echo -e "  ${GREEN}7)${NC} 📊 Office (Libre Office)"
+    echo -e "  ${GREEN}7)${NC} 📊 Office (Libre Office, Only Office)"
     echo -e "  ${GREEN}8)${NC} ✂️  Editing(Blender, Kdenlive, shotcut, Gimp)"
     echo -e "  ${GREEN}9)${NC} 🔄 Reboot System"
     echo -e "  ${RED}0)${NC} 🚪 Exit"
@@ -456,10 +439,8 @@ info "Installing Flatpak..."
 sudo dnf install -y flatpak && success "Flatpak installed"
 info "Upgrading all packages..."
 sudo dnf update -y && success "System Updated"
+presstocontinue
 
-echo ""
-echo -n "Press any key to continue to the main menu..."
-read -n 1
 
 while true; do
     show_menu
