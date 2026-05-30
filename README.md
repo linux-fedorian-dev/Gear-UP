@@ -18,7 +18,7 @@ Gaming | Development | Internet | Hardware | Nvidia | ASUS Laptops | Editing
 
 Open a terminal and run these commands one by one:
 
-`bash
+
 git clone https://github.com/linux-fedorian-dev/Gear-UP.git
 
 chmod +x ~/Gear-UP/Gear-UP.sh
