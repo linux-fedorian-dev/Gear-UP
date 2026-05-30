@@ -1,28 +1,24 @@
-# Gear-UP:
+# ⚙️ Gear-UP
 
-Gear-UP is a simple script for "fedora linux" 
-it automates the installation of the essential tools for developing, gaming, internet, hardware, office, editing and asus tools .... 
-all in a one menu
+[![Fedora](https://img.shields.io/badge/Fedora-41-51A2C4?logo=fedora)](https://fedoraproject.org/)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](Gear-UP.sh)
 
-the idea of Gear-UP is:
-simple ex, pro results
+Gear-UP is a simple script for Fedora Linux that automates installing essential tools for:
+Gaming | Development | Internet | HARDWARE | Nvidia | ASUS Laptops | Editing
 
-you install anything just by tybing y/n
+> The idea: *"Simple experience, professional results"*
+> – Just type y or n.
 
-just make sure to disable the secure boot from the bios and enable third-party repo
+## ⚠️ Before You Start
 
-how to use?
+- Disable Secure Boot from your BIOS (required for NVIDIA drivers)
+- Enable third-party repositories (RPM Fusion, Flathub)
 
-1_open the terminal
+## Quick Start
 
-2_copy these command:
-{
-  1_
-  git clone https://github.com/linux-fedorian-dev/Gear-UP.git
-  2_
-  chmod +x ~/Gear-UP/Gear-UP.sh
-  3_
-  ~/Gear-UP/Gear-UP.sh
-}
+Open a terminal and run these commands one by one:
 
-3_ enjoy
+`bash
+git clone https://github.com/linux-fedorian-dev/Gear-UP.git
+chmod +x ~/Gear-UP/Gear-UP.sh
+~/Gear-UP/Gear-UP.sh
