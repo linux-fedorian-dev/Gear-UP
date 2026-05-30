@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](Gear-UP.sh)
 
 Gear-UP is a simple script for Fedora Linux that automates installing essential tools for:
-Gaming | Development | Internet | HARDWARE | Nvidia | ASUS Laptops | Editing
+Gaming | Development | Internet | Hardware | Nvidia | ASUS Laptops | Editing
 
 > The idea: *"Simple experience, professional results"*
 > – Just type y or n.
@@ -20,5 +20,7 @@ Open a terminal and run these commands one by one:
 
 `bash
 git clone https://github.com/linux-fedorian-dev/Gear-UP.git
+
 chmod +x ~/Gear-UP/Gear-UP.sh
+
 ~/Gear-UP/Gear-UP.sh
