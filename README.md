@@ -1,6 +1,6 @@
 # ⚙️ Gear-UP
 
-[![Fedora](https://img.shields.io/badge/Fedora-41-51A2C4?logo=fedora)](https://fedoraproject.org/)
+[![Fedora](https://img.shields.io/badge/Fedora-44-51A2C4?logo=fedora)](https://fedoraproject.org/)
 [![Version](https://img.shields.io/badge/version-1.0-blue.svg)](Gear-UP.sh)
 
 Gear-UP is a simple script for Fedora Linux that automates installing essential tools for:
