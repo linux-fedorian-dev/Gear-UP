@@ -7,7 +7,7 @@ Gear-UP is a simple script for Fedora Linux that automates installing essential 
 
 **__Gaming | Development | Internet | Hardware | Nvidia | ASUS Laptops | Editing | Office__**
 
-> The idea: *"Simple experience, professional results"*
+> The idea: ___Simple experience, professional results___
 > – Just type y or n.
 
 ## ⚠️ Before You Start
@@ -28,6 +28,8 @@ chmod +x ~/Gear-UP/Gear-UP.sh
 
 
 <img width="597" height="429" alt="Screenshot_20260530_223124" src="https://github.com/user-attachments/assets/4e29e6bc-0e66-4ce4-b91d-d84126cb2afb" />
+
+##Info:
 
 
 -you can run the script multiple times by 
