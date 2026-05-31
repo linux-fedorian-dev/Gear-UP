@@ -7,7 +7,7 @@ Gear-UP is a simple script for Fedora Linux that automates installing essential 
 
 **__Gaming | Development | Internet | Hardware | Nvidia | ASUS Laptops | Editing | Office__**
 
-The idea: *** { Simple experience, professional results }***
+The idea: ***{ Simple experience, professional results }***
 
  Just type y or n.
 
