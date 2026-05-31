@@ -28,3 +28,11 @@ chmod +x ~/Gear-UP/Gear-UP.sh
 
 <img width="597" height="429" alt="Screenshot_20260530_223124" src="https://github.com/user-attachments/assets/4e29e6bc-0e66-4ce4-b91d-d84126cb2afb" />
 
+
+-you can rum the script multiple times
+
+
+-**if you have an idea to improve Gear-UP**
+
+ask me directly to add it wherever you want
+
