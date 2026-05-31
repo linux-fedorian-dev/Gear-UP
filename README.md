@@ -42,6 +42,6 @@ chmod +x ~/Gear-UP/Gear-UP.sh
 
 ask me directly to add it wherever you want
 
-## Lisence:
+## License:
 
-i use the **(mit)** lisence
+i use the **(mit)** license
