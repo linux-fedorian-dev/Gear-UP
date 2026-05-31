@@ -111,7 +111,7 @@ Editing() {
 
     ask_yn "Do you want to Install Gimp?" && INSTALL_GIMP=true
     ask_yn "Do you want to Install kdenlive?" && INSTALL_KDENLIVE=true
-    ask_yn "DO you want to Install Blender?" && INSTALL_BLENDER=true
+    ask_yn "Do you want to Install Blender?" && INSTALL_BLENDER=true
     ask_yn "Do you want to Install Shotcut?" && INSTALL_SHOTCUT=true
 
     if [ "$INSTALL_GIMP" = true ]; then
