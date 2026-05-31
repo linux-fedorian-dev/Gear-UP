@@ -26,4 +26,4 @@ chmod +x ~/Gear-UP/Gear-UP.sh
 ~/Gear-UP/Gear-UP.sh
 
 
-!(Pictures/Screenshot_20260530_223124.png)
+![menu](Pictures/Screenshot_20260530_223124.png)
