@@ -278,7 +278,7 @@ NvidiaInstall() {
         sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
         
         info "Installing NVIDIA drivers and CUDA..."
-        sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-cuda
+        sudo dnf install -y akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda
         
         clear
         echo ""
