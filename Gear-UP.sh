@@ -12,6 +12,14 @@ info() { echo -e "${BLUE}➡️ $1${NC}"; }
 warn() { echo -e "${YELLOW}⚠️ $1${NC}"; }
 error() { echo -e "${RED}❌ $1${NC}"; }
 
+checkfail() {
+    if [ $? -eq 0 ]; then
+        success "success"
+    else 
+        error "installing error"
+    fi
+}
+
 ask_yn() {
     local answer
     while true; do
@@ -61,17 +69,20 @@ Internet() {
 
     if [ "$INSTALL_TELEGRAM" = true ]; then
         info "Installing Telegram..."
-        flatpak install -y flathub org.telegram.desktop && success "Telegram installed"
+        flatpak install -y flathub org.telegram.desktop
+        checkfail
     fi
 
     if [ "$INSTALL_FREETUBE" = true ]; then
         info "Installing FreeTube..."
-        flatpak install -y flathub io.freetubeapp.FreeTube && success "FreeTube installed"
+        flatpak install -y flathub io.freetubeapp.FreeTube
+        checkfail
     fi
 
     if [ "$INSTALL_DISCORD" = true ]; then
         info "Installing Discord..."
         sudo dnf install -y discord
+        checkfail
     fi
     presstocontinue
 }
@@ -90,10 +101,12 @@ Office() {
     if [ "$INSTALL_LIBRE" = true ]; then
         info " Installing Libre Office..."
         sudo dnf install -y libreoffice
+        checkfail
     fi
     if [ "$INSTALL_ONLY" = true ]; then
         info " Installing Olny Office..."
         flatpak install -y flathub org.onlyoffice.desktopeditors
+        checkfail
     fi
     presstocontinue
 }
@@ -111,27 +124,31 @@ Editing() {
 
     ask_yn "Do you want to Install Gimp?" && INSTALL_GIMP=true
     ask_yn "Do you want to Install kdenlive?" && INSTALL_KDENLIVE=true
-    ask_yn "Do you want to Install Blender?" && INSTALL_BLENDER=true
+    ask_yn "DO you want to Install Blender?" && INSTALL_BLENDER=true
     ask_yn "Do you want to Install Shotcut?" && INSTALL_SHOTCUT=true
 
     if [ "$INSTALL_GIMP" = true ]; then
         info "Installing GIMP..."
-        sudo dnf install -y gimp && success "GIMP installed"
+        sudo dnf install -y gimp 
+        checkfail
     fi
 
     if [ "$INSTALL_KDENLIVE" = true ]; then
         info "Installing Kdenlive..."
-        sudo dnf install -y kdenlive && success "Kdenlive installed"
+        sudo dnf install -y kdenlive
+        checkfail
     fi
 
     if [ "$INSTALL_BLENDER" = true ]; then
         info "Installing Blender..."
-        sudo dnf install -y blender && success "Blender installed"
+        sudo dnf install -y blender 
+        checkfail
     fi
 
     if [ "$INSTALL_SHOTCUT" = true ]; then
         info "Installing Shotcut..."
-        sudo dnf install -y shotcut && success "Shotcut installed"
+        sudo dnf install -y shotcut
+        checkfail
     fi
     presstocontinue
 }
@@ -154,22 +171,26 @@ GamingPlatforms() {
 
     if [ "$INSTALL_STEAM" = true ]; then
         info "Installing Steam..."
-        sudo dnf install -y steam && success "Steam installed"
+        sudo dnf install -y steam 
+        checkfail
     fi
 
     if [ "$INSTALL_LUTRIS" = true ]; then
         info "Installing Lutris..."
-        sudo dnf install -y lutris && success "Lutris installed"
+        sudo dnf install -y lutris
+        checkfail
     fi
 
     if [ "$INSTALL_HEROIC" = true ]; then
         info "Installing Heroic Games Launcher..."
-        flatpak install -y flathub com.heroicgameslauncher.hgl && success "Heroic installed"
+        flatpak install -y flathub com.heroicgameslauncher.hgl 
+        checkfail
     fi
 
     if [ "$INSTALL_PROTONUP" = true ]; then
         info "Installing ProtonUp-Qt..."
-        flatpak install -y flathub net.davidotek.pupgui2 && success "ProtonUp-Qt installed"
+        flatpak install -y flathub net.davidotek.pupgui2 
+        checkfail
     fi
     presstocontinue
 }
@@ -190,17 +211,20 @@ GameGearUP() {
 
     if [ "$INSTALL_GAMEMODE" = true ]; then
         info "Installing Gamemode..."
-        sudo dnf install -y gamemode && success "Gamemode installed"
+        sudo dnf install -y gamemode 
+        checkfail
     fi
 
     if [ "$INSTALL_MANGOHUD" = true ]; then
         info "Installing MangoHud..."
-        sudo dnf install -y mangohud && success "MangoHud installed"
+        sudo dnf install -y mangohud
+        checkfail
     fi
 
     if [ "$INSTALL_BTOP" = true ]; then
         info "Installing btop..."
-        sudo dnf install -y btop && success "btop installed"
+        sudo dnf install -y btop 
+        checkfail
     fi
     presstocontinue
 }
@@ -222,26 +246,30 @@ installcodec() {
         
         info "Installing FFmpeg..."
         sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+        checkfail
         
         info "Updating multimedia groups..."
         sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+        checkfail
 
         ask_yn "Is your processor Intel?" && intel=true
+        ask_yn "Is your processor AMD?" && amd=true
         if [ "$intel" = true ]; then
             info "Installing Intel media drivers..."
-            sudo dnf install -y intel-media-driver && success "Intel drivers installed"
+            sudo dnf install -y intel-media-driver 
         fi
 
-        ask_yn "Is your processor AMD?" && amd=true
-        if [ "$amd" = true ]; then
+        if [[ "$amd" = true && "$intel" = false ]]; then
             info "Installing AMD VA-API drivers..."
-            sudo dnf install -y mesa-va-drivers-freeworld && success "AMD drivers installed"
+            sudo dnf install -y mesa-va-drivers-freeworld
         fi
+        checkfail
 
         ask_yn "Do you have NVIDIA GPU?" && nvidia=true
         if [ "$nvidia" = true ]; then
             info "Installing NVIDIA VA-API driver..."
-            sudo dnf install -y libva-nvidia-driver && success "NVIDIA driver installed"
+            sudo dnf install -y libva-nvidia-driver 
+            checkfail
         fi
 
         if ! rpm -q rpmfusion-free-release-tainted &> /dev/null; then
@@ -273,13 +301,14 @@ NvidiaInstall() {
     echo -e "${BOLD}${RED}==========================================================${NC}"
     echo ""
     
-    if ask_yn "Do you want to install NVIDIA drivers?"; then
+    if ask_yn "Do you want to install NVIDIA drivers (580xx)?"; then
         info "Adding RPM Fusion (if not already added)..."
         sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
         
         info "Installing NVIDIA drivers and CUDA..."
         sudo dnf install -y akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda
-        
+        checkfail
+        presstocontinue
         clear
         echo ""
         echo -e "${BOLD}${GREEN}==========================================================${NC}"
@@ -312,10 +341,11 @@ AsusToolsInstall() {
 
         info "Installing asusctl, supergfxctl, and rog-control-center..."
         sudo dnf install -y asusctl-rog-gui asusctl 
-
+        checkfail
         info "Enabling and starting services..."
         sudo systemctl enable --now asusd.service
-        
+
+        presstocontinue
         clear
         echo -e "${BOLD}${GREEN}============================================${NC}"
         echo -e "${BOLD}${GREEN}        ✅ ASUS Tools installed successfully!${NC}"
@@ -355,34 +385,40 @@ DevelopmentTools() {
 
     if [ "$INSTALL_GIT" = true ]; then
         info "Installing Git..."
-        sudo dnf install -y git && success "Git installed"
+        sudo dnf install -y git 
+        checkfail
     fi
 
     if [ "$INSTALL_GCC" = true ]; then
         info "Installing GCC/Clang..."
-        sudo dnf groupinstall -y "Development Tools" && success "GCC/Clang installed"
+        sudo dnf groupinstall -y "Development Tools"
+        checkfail
     fi
 
     if [ "$INSTALL_CMAKE" = true ]; then
         info "Installing CMake..."
-        sudo dnf install -y cmake && success "CMake installed"
+        sudo dnf install -y cmake
+        checkfail
     fi
 
     if [ "$INSTALL_VSCODE" = true ]; then
         info "Installing VS Code..."
         sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
         sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-        sudo dnf install -y code && success "VS Code installed"
+        sudo dnf install -y code
+        checkfail
     fi
 
     if [ "$INSTALL_PYTHON" = true ]; then
         info "Installing Python and pip..."
-        sudo dnf install -y python3 python3-pip && success "Python installed"
+        sudo dnf install -y python3 python3-pip 
+        checkfail
     fi
 
     if [ "$INSTALL_NODEJS" = true ]; then
         info "Installing Node.js and npm..."
-        sudo dnf install -y nodejs npm && success "Node.js installed"
+        sudo dnf install -y nodejs npm 
+        checkfail
     fi
     presstocontinue
 }
