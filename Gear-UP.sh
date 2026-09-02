@@ -301,12 +301,12 @@ NvidiaInstall() {
     echo -e "${BOLD}${RED}==========================================================${NC}"
     echo ""
     
-    if ask_yn "Do you want to install NVIDIA drivers (580xx)?"; then
-        info "Adding RPM Fusion (if not already added)..."
+    if ask_yn "Do you want to install NVIDIA drivers?"; then
+        info "Adding RPM Fusion..."
         sudo dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
         
         info "Installing NVIDIA drivers and CUDA..."
-        sudo dnf install -y akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda
+        sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
         checkfail
         presstocontinue
         clear
